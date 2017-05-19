@@ -7,9 +7,9 @@ Feature: Gerar relatório final
 	Scenario: Gerar relatório de projeto com atividades com relatório individual preenchido (Sistema)
 		Given O projeto "Educação política para mafagafos" existe no sistema
 		And O projeto "Educação política para mafagafos" possui a atividade "Preparar palestra"
-		And a atividade "Preparar palestra" tem relatório individual preenchido
+		And a atividade "Preparar palestra" tem relatório individual preenchido com "Deu bom"
 		And O projeto "Educação política para mafagafos" possui a atividade "Imprimir apostilas"
-		And a atividade "Imprimir apostilas" tem relatório individual preenchido
+		And a atividade "Imprimir apostilas" tem relatório individual preenchido com "Deu Ruim"
 		When Eu tento gerar um relatório final do projeto "Educação política para mafagafos"
 		Then O sistema cria um relatório final composto pelos relatórios individuais da atividade "Preparar palestra" e da atividade "Imprimir apostilas"
 
@@ -17,7 +17,7 @@ Feature: Gerar relatório final
 	Scenario: Gerar relatório de projeto sem atividades com relatório individual preenchido (Sistema)
 		Given O projeto "Amigos do Batman" existe no sistema
 		And O projeto "Amigos do Batman" não possui atividades com relatório individual preenchido
-		When Eu tento gerar um relatório final do projeto
+		When Eu tento gerar um relatório final do projeto "Amigos do Batman"
 		Then O sistema não cria um relatório final para o projeto
 
 	@ignore
