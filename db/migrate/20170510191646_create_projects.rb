@@ -1,4 +1,6 @@
 class CreateProjects < ActiveRecord::Migration[5.0]
+  has_many :task
+  has_many :user
   def change
     create_table :projects do |t|
       t.string :name
