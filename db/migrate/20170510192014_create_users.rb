@@ -1,6 +1,4 @@
 class CreateUsers < ActiveRecord::Migration[5.0]
-  has_many :project
-  has_many :task
   def change
     create_table :users do |t|
       t.string :cpf
