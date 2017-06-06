@@ -6,6 +6,8 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.date :final_date
       t.string :task_report
 
+      t.references :project
+
       t.timestamps
     end
   end

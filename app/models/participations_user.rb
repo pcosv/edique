@@ -1,0 +1,2 @@
+class ParticipationsUser < ApplicationRecord
+end
