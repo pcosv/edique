@@ -1,12 +1,63 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Projects</h1>
+<% @projects.each do |project| %>
+  <!-- Single project container -->
+  <a href=<%= project_tasks_path(project_id: project) %>><div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <div class="well project-well">
+          <div class="row">
+            <div class="col-md-3 right-bordered">
+              <h2><%= project.name %></h2>
+            </div>
+
+            <div class="col-md-3 right-bordered">
+              <h3>Atividades</h3>
+              <ul class="list-group activities-list">
+                <li class="list-group-item">
+                  <span><%= project.tasks.by_user(@current_user).count %></span> tarefas para você
+                </li>
+                <li class="list-group-item">
+                  <span><%= project.tasks.idle.count %></span> tarefas ociosas
+                </li>
+                <li class="list-group-item">
+                  <span>2</span> tarefas concluídas
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-6">
+              <h3>Membros</h3>
+              <ul class="list-group">
+                <% project.users.each do |user| %>
+                  <li class="list-group-item">
+                    <div class="row-picture">
+                      <img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
+                    </div>
+                    <div class="row-content">
+                      <h4 class="list-group-item-heading"><%= user.first_name + ' ' + user.last_name %></h4>
+
+                      <p class="list-group-item-text">3 atividades pendentes</p>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></a>
+<% end %>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Idle Tasks Count</th>
+      <th>Users Count</th>
       <th>Start date</th>
       <th>Final date</th>
       <th colspan="3"></th>
@@ -18,6 +69,8 @@
       <tr>
         <td><%= project.name %></td>
         <td><%= project.description %></td>
+        <td><%= project.tasks.idle.count %></td>
+        <td><%= project.users.count %></td>
         <td><%= project.start_date %></td>
         <td><%= project.final_date %></td>
         <td><%= link_to 'Show', project_tasks_path(project_id: project) %></td>
