@@ -61,6 +61,21 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # POST /projects/:id/invite { name: "John Smith", email: "john@email.com" }
+  def invite
+    # Set the current project
+    @project = Project.find(param[:id])
+
+    # Create your own strong_invite_params method to allow name and email
+    user_member = User.find(param[:uid])
+
+    # If a simple belongs_to :project association
+    user_member.update(project: @project.id)
+
+    # If a complex association through a separate projects_membership table
+    user_member.projects << @project
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
