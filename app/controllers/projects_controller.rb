@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all.includes(:tasks).includes(:users)
-    
+    @tasks = @project.tasks
   end
 
   # GET /projects/1
@@ -72,6 +72,8 @@ class ProjectsController < ApplicationController
 
     if user_member.projects.exists?(@project) 
       user_member.projects.delete(@project)
+
+      user_member.tasks.delete_all
     else
       user_member.projects << @project
     end
