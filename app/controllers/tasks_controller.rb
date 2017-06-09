@@ -13,7 +13,6 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @users = User.all
-    @tasks = @project.tasks.all
     @task = @project.tasks.find(params[:id])
   end
 
@@ -74,13 +73,13 @@ class TasksController < ApplicationController
     user_member = User.find(params[:uid])
 
 
-  #  if user_member.projects.exists?(@project) 
-  #    user_member.projects.delete(@project)
-  #  else
-  #    user_member.@project.tasks << @task
-  #  end
+    if user_member.tasks.exists?(@task) 
+      user_member.tasks.delete(@task)
+    else
+      user_member.tasks << @task
+    end
 
-    redirect_to controller: 'tasks', action: 'index'
+   # redirect_to controller: 'tasks', action: 'show'
   end
 
   private
