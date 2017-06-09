@@ -25,15 +25,16 @@
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
 
-<p>
+
 <h1>Users</h1>
+ <ul>
   <% @users.each do |user| %>
-    <p>
-    <%= link_to user.first_name ? user.first_name : user.cpf, project_invite_path(@project,user), method: :post %>
-    <%= user.projects.exists?(@project) ? 'Associado' : 'Não associado' %>
-    </p>
+    <li>
+    <%= link_to user.first_name ? user.first_name : user.cpf, project_addMember_path(@project,user), method: :post %>
+    <%= user.projects.exists?(@project) ? 'Associado ao projeto' : 'Não associado ao projeto' %>
+    </li>
   <% end %>
-<p>
+</ul>
 
 <h1>Tasks</h1>
 

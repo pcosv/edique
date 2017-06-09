@@ -63,13 +63,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # POST /projects/:id/invite { name: "John Smith", email: "john@email.com" }
-  def invite
+  # POST /projects/:project_id/addMember/:uid
+  def addMember
 
-    # Set the current project
     @project = Project.find(params[:project_id])
-
-    # Create your own strong_invite_params method to allow name and email
     user_member = User.find(params[:uid])
 
 
