@@ -1,92 +1,148 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
 
-<% @projects.each do |project| %>
-  <!-- Single project container -->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <a href=<%= project_path(id: project) %>><div class="well project-well">
-          <div class="row">
-            <div class="project-item col-md-3 right-bordered">
-              <h2><%= project.name %></h2>
-            </div>
+	<% flash.each do |key, value| %>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="alert alert-dismissible alert-success">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<%= value %>
+				</div>
+			</div>
+		</div>
+	<% end %>
 
-            <div class="project-item col-md-3 right-bordered">
-              <h3>Atividades</h3>
-              <ul class="list-group activities-list">
-                <li class="list-group-item">
-                  <span><%= project.tasks.by_user(@current_user).count %></span>
-                   tarefa<% if project.tasks.by_user(@current_user).count != 1 %>s<%end%> para você
-                </li>
-                <li class="list-group-item">
-                  <span><%= project.tasks.idle.count %></span>
-                   tarefa<% if project.tasks.idle.count != 1 %>s<%end%> ociosa<% if project.tasks.idle.count != 1 %>s<%end%>
-                </li>
-                <li class="list-group-item">
-                  <span><%= project.tasks.completed.count %></span>
-                   tarefa<% if project.tasks.completed.count != 1 %>s<%end%> concluída<% if project.tasks.completed.count != 1 %>s<%end%>
-                </li>
-              </ul>
-            </div>
+	<% @projects.each do |project| %>
+	<!-- Single project container -->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<a href=<%= project_path(id: project) %>><div class="well project-well">
+					<div class="row">
+						<div class="project-item col-md-3 right-bordered">
+							<h2><%= project.name %></h2>
+						</div>
 
-            <div class="project-item col-md-6">
-              <h3>Membros</h3>
-              <ul class="list-group">
-                <% project.users.each do |user| %>
-                  <li class="list-group-item">
-                    <div class="row-picture">
-                      <img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
-                    </div>
-                    <div class="row-content">
-                      <h4 class="list-group-item-heading"><%= user.first_name + ' ' + user.last_name %></h4>
+						<div class="project-item col-md-3 right-bordered">
+							<h3>Atividades</h3>
+							<ul class="list-group activities-list">
+								<li class="list-group-item">
+									<span><%= project.tasks.by_user(@current_user).count %></span>
+									 tarefa<% if project.tasks.by_user(@current_user).count != 1 %>s<%end%> para você
+								</li>
+								<li class="list-group-item">
+									<span><%= project.tasks.idle.count %></span>
+									 tarefa<% if project.tasks.idle.count != 1 %>s<%end%> ociosa<% if project.tasks.idle.count != 1 %>s<%end%>
+								</li>
+								<li class="list-group-item">
+									<span><%= project.tasks.completed.count %></span>
+									 tarefa<% if project.tasks.completed.count != 1 %>s<%end%> concluída<% if project.tasks.completed.count != 1 %>s<%end%>
+								</li>
+							</ul>
+						</div>
 
-                      <p class="list-group-item-text">3 atividades pendentes</p>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
+						<div class="project-item col-md-6">
+							<h3>Membros</h3>
+							<ul class="list-group">
+								<% project.users.each do |user| %>
+									<li class="list-group-item">
+										<div class="row-picture">
+											<img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
+										</div>
+										<div class="row-content">
+											<h4 class="list-group-item-heading"><%= user.first_name + ' ' + user.last_name %></h4>
 
-          </div>
-        </div></a>
-      </div>
-    </div>
-  </div>
-<% end %>
+											<p class="list-group-item-text">3 atividades pendentes</p>
+										</div>
+									</li>
+								<% end %>
+							</ul>
+						</div>
 
-<a href="javascript:void(0)" class="btn btn-danger btn-fab floating-btn">
-  <i class="material-icons">add</i><div class="ripple-container"></div>
+					</div>
+				</div></a>
+			</div>
+		</div>
+	<% end %>
+</div>
+
+<a data-toggle="modal" href="#new-proj-modal" class="btn btn-danger btn-fab floating-btn">
+	<i class="material-icons">add</i><div class="ripple-container"></div>
 </a>
+
+
+<div class="modal fade" id="new-proj-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="/" method="post">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Novo projeto</h4>
+				</div> -->
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+						<div class="col-md-12">
+							<div class="form-group form-group-lg label-floating">
+								<label for="project[name]" class="control-label">Título do Projeto</label>
+								<input type="text" class="form-control" id="project[name]" name="project[name]">
+							</div>
+
+							<div class="form-group label-floating">
+								<label for="project[description]" class="control-label">Descrição</label>
+								<textarea id="project[description]" name="project[description]" class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-md-6 col-md-offset-6">
+							<div class="form-group form-group-lg">
+								<label for="project[initial-date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[initial-date]" name="project[initial-date]">
+							</div>
+
+							<div class="form-group form-group-lg">
+								<label for="project[final-date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[final-date]" name="project[final-date]">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Criar projeto</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <!-- Old code -->
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Idle Tasks Count</th>
-      <th>Users Count</th>
-      <th>Start date</th>
-      <th>Final date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Idle Tasks Count</th>
+			<th>Users Count</th>
+			<th>Start date</th>
+			<th>Final date</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
 
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.name %></td>
-        <td><%= project.description %></td>
-        <td><%= project.tasks.idle.count %></td>
-        <td><%= project.users.count %></td>
-        <td><%= project.start_date %></td>
-        <td><%= project.final_date %></td>
-        <td><%= link_to 'Show', project_tasks_path(project_id: project) %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @projects.each do |project| %>
+			<tr>
+				<td><%= project.name %></td>
+				<td><%= project.description %></td>
+				<td><%= project.tasks.idle.count %></td>
+				<td><%= project.users.count %></td>
+				<td><%= project.start_date %></td>
+				<td><%= project.final_date %></td>
+				<td><%= link_to 'Show', project_tasks_path(project_id: project) %></td>
+				<td><%= link_to 'Edit', edit_project_path(project) %></td>
+				<td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br>
