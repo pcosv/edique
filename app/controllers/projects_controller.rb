@@ -4,7 +4,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.all.includes(:tasks).includes(:users)
+    
+    @current_user = User.first #TODO: get this in the correct way
   end
 
   # GET /projects/1
