@@ -31,7 +31,7 @@
   <% @users.each do |user| %>
     <li>
     <%= link_to user.first_name ? user.first_name : user.cpf, project_addMember_path(@project,user), method: :post %>
-    <%= user.projects.exists?(@project) ? 'Associado' : 'Não associado' %>
+    <%= user.projects.exists?(@project) ? 'Associado ao projeto' : 'Não associado ao projeto' %>
     </li>
   <% end %>
 </ul>
