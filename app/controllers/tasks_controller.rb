@@ -79,7 +79,7 @@ class TasksController < ApplicationController
       user_member.tasks << @task
     end
 
-   # redirect_to controller: 'tasks', action: 'show'
+    redirect_to controller: 'tasks', action: 'show', id: @task
   end
 
   private

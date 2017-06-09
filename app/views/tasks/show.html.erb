@@ -33,7 +33,7 @@
   <% @users.each do |user| %>
     <li>
     <%= link_to user.first_name ? user.first_name : user.cpf, project_task_addMemberTask_path(@project, @task, user), method: :post %>
-    <%= user.tasks.exists?(@task) ? '1' : '2'%>
+    <%= user.tasks.exists?(@task) ? 'Faz parte' : 'Nao faz parte'%>
     </li>
   <% end %>
 </ul>
