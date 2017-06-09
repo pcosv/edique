@@ -63,6 +63,25 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # POST /projects/:id/invite { name: "John Smith", email: "john@email.com" }
+  def invite
+
+    # Set the current project
+    @project = Project.find(params[:project_id])
+
+    # Create your own strong_invite_params method to allow name and email
+    user_member = User.find(params[:uid])
+
+
+    if user_member.projects.exists?(@project) 
+      user_member.projects.delete(@project)
+    else
+      user_member.projects << @project
+    end
+
+    redirect_to controller: 'tasks', action: 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

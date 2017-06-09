@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   #resources :tasks
   resources :projects, :path => '/' do
     resources :tasks
+    post '/invite/:uid' => 'projects#invite', as: 'invite'
   end
 
   # root to '#projects#index'
