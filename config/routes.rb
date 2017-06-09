@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users
   #resources :tasks
   resources :projects, :path => '/' do
-    resources :tasks, :path  => '' do
+    resources :tasks do
    		post '/addMemberTask/:uid' => 'tasks#addMemberTask', as: 'addMemberTask'
     end
     post '/addMember/:uid' => 'projects#addMember', as: 'addMember'
