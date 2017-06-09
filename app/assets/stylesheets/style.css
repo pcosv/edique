@@ -1,13 +1,23 @@
 .project-well {
-	color: black;
+    color: black;
+    /*display: table;*/
 }
+/*.project-well:hover * {
+    color: red;
+    text-decoration: none !important;
+}*/
 
 .project-well .col-md-3 {
-	padding: 0 20px;
+    padding: 0 20px;
 }
 
 .project-weel .col-md-3 h3 {
-	margin-top: 0;
+    margin-top: 0;
+}
+
+.project-item {
+    float/*: none;
+    display: ta*/ble-cell;
 }
 
 .right-bordered {
@@ -24,9 +34,15 @@
 }
 
 .activities-list .list-group-item {
-	padding-left: 0;
+    padding-left: 0;
 }
 
 .activities-list span {
-	font-size: 20px;
+    font-size: 20px;
+}
+
+#new-project {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
 }
