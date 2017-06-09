@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
   end
 
   # POST /projects/:id/invite { name: "John Smith", email: "john@email.com" }
-  def invite
+  def addMember
 
     # Set the current project
     @project = Project.find(params[:project_id])

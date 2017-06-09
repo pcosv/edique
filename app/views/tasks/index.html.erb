@@ -30,7 +30,7 @@
  <ul>
   <% @users.each do |user| %>
     <li>
-    <%= link_to user.first_name ? user.first_name : user.cpf, project_invite_path(@project,user), method: :post %>
+    <%= link_to user.first_name ? user.first_name : user.cpf, project_addMember_path(@project,user), method: :post %>
     <%= user.projects.exists?(@project) ? 'Associado' : 'Não associado' %>
     </li>
   <% end %>
