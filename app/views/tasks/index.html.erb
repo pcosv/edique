@@ -27,9 +27,12 @@
 
 <p>
 <h1>Users</h1>
-
-<%= link_to 'TESTE', project_invite_path(@project,1) %>
-
+  <% @users.each do |user| %>
+    <p>
+    <%= link_to user.first_name ? user.first_name : user.cpf, project_invite_path(@project,user), method: :post %>
+    <%= user.projects.exists?(@project) ? 'Associado' : 'Não associado' %>
+    </p>
+  <% end %>
 <p>
 
 <h1>Tasks</h1>

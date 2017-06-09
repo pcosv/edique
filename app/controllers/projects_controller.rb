@@ -63,17 +63,21 @@ class ProjectsController < ApplicationController
 
   # POST /projects/:id/invite { name: "John Smith", email: "john@email.com" }
   def invite
+
     # Set the current project
-    @project = Project.find(param[:id])
+    @project = Project.find(params[:project_id])
 
     # Create your own strong_invite_params method to allow name and email
-    user_member = User.find(param[:uid])
+    user_member = User.find(params[:uid])
 
-    # If a simple belongs_to :project association
-    user_member.update(project: @project.id)
 
-    # If a complex association through a separate projects_membership table
-    user_member.projects << @project
+    if user_member.projects.exists?(@project) 
+      user_member.projects.delete(@project)
+    else
+      user_member.projects << @project
+    end
+
+    redirect_to controller: 'tasks', action: 'index'
   end
 
   private
