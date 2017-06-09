@@ -15,13 +15,16 @@
               <h3>Atividades</h3>
               <ul class="list-group activities-list">
                 <li class="list-group-item">
-                  <span><%= project.tasks.by_user(@current_user).count %></span> tarefas para você
+                  <span><%= project.tasks.by_user(@current_user).count %></span>
+                   tarefa<% if project.tasks.by_user(@current_user).count != 1 %>s<%end%> para você
                 </li>
                 <li class="list-group-item">
-                  <span><%= project.tasks.idle.count %></span> tarefas ociosas
+                  <span><%= project.tasks.idle.count %></span>
+                   tarefa<% if project.tasks.idle.count != 1 %>s<%end%> ociosa<% if project.tasks.idle.count != 1 %>s<%end%>
                 </li>
                 <li class="list-group-item">
-                  <span>2</span> tarefas concluídas
+                  <span><%= project.tasks.completed.count %></span>
+                   tarefa<% if project.tasks.completed.count != 1 %>s<%end%> concluída<% if project.tasks.completed.count != 1 %>s<%end%>
                 </li>
               </ul>
             </div>

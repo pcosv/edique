@@ -13,4 +13,6 @@ class Task < ApplicationRecord
 	scope :not_by_user, lambda { |user|
 		where.not(id: by_user(user)).where.not(id: idle)
 	}
+
+	scope :completed, -> { where(completed: true) }
 end
