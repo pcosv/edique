@@ -5,7 +5,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-        <a href=<%= project_tasks_path(project_id: project) %>><div class="well project-well">
+        <a href=<%= project_path(id: project) %>><div class="well project-well">
           <div class="row">
             <div class="project-item col-md-3 right-bordered">
               <h2><%= project.name %></h2>
@@ -51,7 +51,7 @@
   </div>
 <% end %>
 
-<a href="javascript:void(0)" class="btn btn-danger btn-fab" id="new-project">
+<a href="javascript:void(0)" class="btn btn-danger btn-fab floating-btn">
   <i class="material-icons">add</i><div class="ripple-container"></div>
 </a>
 

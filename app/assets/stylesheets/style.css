@@ -16,8 +16,8 @@
 }
 
 .project-item {
-    float/*: none;
-    display: ta*/ble-cell;
+    /*float: none;
+    display: table-cell;*/
 }
 
 .right-bordered {
@@ -41,8 +41,8 @@
     font-size: 20px;
 }
 
-#new-project {
-    position: fixed;
+.floating-btn {
+    position: fixed !important;
     right: 20px;
     bottom: 20px;
 }
