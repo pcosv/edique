@@ -6,6 +6,7 @@ Rails.application.routes.draw do
    		post '/addMemberTask/:uid' => 'tasks#addMemberTask', as: 'addMemberTask'
     end
     post '/addMember/:uid' => 'projects#addMember', as: 'addMember'
+    post '/finish' => 'projects#finish_project', as: 'finish'
   end
 
   # root to '#projects#index'

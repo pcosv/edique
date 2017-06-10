@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.includes(:tasks).includes(:users)
+    @projects = Project.not_finished.includes(:tasks).includes(:users)
     
   end
 
@@ -77,6 +77,22 @@ class ProjectsController < ApplicationController
     end
 
     redirect_to controller: 'tasks', action: 'index'
+  end
+
+  def finish_project
+    project = Project.find(params[:project_id])
+    project.finished = true
+
+    respond_to do |format|
+      if project.save
+        format.html { redirect_to projects_url, notice: 'Projeto arquivado com sucesso.' }
+        format.json { render :show, status: :created, location: @project }
+      else
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   private
