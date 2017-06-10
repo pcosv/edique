@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609195403) do
+ActiveRecord::Schema.define(version: 20170610163448) do
 
   create_table "participations", force: :cascade do |t|
     t.integer  "user_id"
@@ -35,8 +35,9 @@ ActiveRecord::Schema.define(version: 20170609195403) do
     t.string   "description"
     t.date     "start_date"
     t.date     "final_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "finished",    default: false
   end
 
   create_table "tasks", force: :cascade do |t|

@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.includes(:tasks).includes(:users)
+    @projects = Project.not_finished.includes(:tasks).includes(:users)
     
   end
 
