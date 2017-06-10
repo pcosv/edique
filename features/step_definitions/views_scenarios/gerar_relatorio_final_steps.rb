@@ -4,7 +4,7 @@ Given(/^o projeto "([^"]*)" existe no sistema$/) do |arg|
   project.save
 end
 
-Given(/^O projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
+Given(/^o projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
   proj = Project.find_by_name(proj_name)
   t = proj.tasks.new(name: task_name)
 end
@@ -27,7 +27,7 @@ end
 
 When(/^eu vou à página do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
-  visit "/projects/#{proj.id}"
+  visit "z#{proj.id}"
 end
 
 When(/^eu seleciono a opção "([^"]*)"$/) do |arg|
@@ -36,7 +36,7 @@ end
 
 Then(/^eu sou levado à página de relatório final do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
-  assert_current_path("/projects/#{proj.id}/report")
+  assert_current_path("#{proj.id}/report")
 end
 
 @activity_report_title_class = '.activity'
