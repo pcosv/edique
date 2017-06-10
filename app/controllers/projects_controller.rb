@@ -63,6 +63,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  #GET /projects/:project_id/report
+  def get_report
+    @tasks = Project.find(params[:project_id]).tasks
+    render("report")
+  end
+
   # POST /projects/:project_id/addMember/:uid
   def addMember
 

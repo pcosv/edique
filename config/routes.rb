@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
     post '/addMember/:uid' => 'projects#addMember', as: 'addMember'
     post '/finish' => 'projects#finish_project', as: 'finish'
+    get '/report' => 'projects#get_report', as: 'report'
   end
 
   # root to '#projects#index'
