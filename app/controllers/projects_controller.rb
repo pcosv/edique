@@ -79,6 +79,22 @@ class ProjectsController < ApplicationController
     redirect_to controller: 'tasks', action: 'index'
   end
 
+  def finish_project
+    project = Project.find(params[:project_id])
+    project.finished = true
+
+    respond_to do |format|
+      if project.save
+        format.html { redirect_to projects_url, notice: 'Projeto arquivado com sucesso.' }
+        format.json { render :show, status: :created, location: @project }
+      else
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project

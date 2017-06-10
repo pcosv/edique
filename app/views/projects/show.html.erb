@@ -5,7 +5,7 @@
 		
 		<section class="col-md-3">
 			<div class="well">
-				<h2><%= @project.name %></h2>
+				<a data-toggle="modal" href="#options-modal"><h2><%= @project.name %></h2></a>
 				<p><%= @project.description %></p>
 
 				<h4>Membros</h4>
@@ -104,10 +104,41 @@
 	</div>
 </div>
 
-<a href="javascript:void(0)" class="btn btn-danger btn-fab floating-btn">
-  <i class="material-icons">add</i><div class="ripple-container"></div>
-</a>
+<% if !@project.finished %>
+	<a href="javascript:void(0)" class="btn btn-danger btn-fab floating-btn">
+	  <i class="material-icons">add</i><div class="ripple-container"></div>
+	</a>
+<% end %>
 
+<!-- Project info modal -->
+<div class="modal fade" id="options-modal">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Opções de projeto</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<% if !@project.finished %>
+								<!-- <button class="btn btn-danger btn-raised"></button> -->
+								<%= button_to "Arquivar projeto", project_finish_path(@project), {class: 'btn btn-danger btn-raised'}%>
+							<% else %>
+								<button class="btn btn-danger btn-raised">Desarquivar projeto</button>
+							<% end %>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- Old code -->
 <p>
   <strong>Name:</strong>
   <%= @project.name %>
