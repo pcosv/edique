@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @users = User.all
     @task = @project.tasks.find(params[:id])
   end
 
@@ -64,6 +65,21 @@ class TasksController < ApplicationController
    #   format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
    #   format.json { head :no_content }
    # end
+  end
+
+  # POST /:project_id/:task_id/addMemberTask/:uid
+  def addMemberTask
+    @task = @project.tasks.find(params[:task_id])
+    user_member = User.find(params[:uid])
+
+
+    if user_member.tasks.exists?(@task) 
+      user_member.tasks.delete(@task)
+    else
+      user_member.tasks << @task
+    end
+
+    redirect_to controller: 'tasks', action: 'show', id: @task
   end
 
   private
