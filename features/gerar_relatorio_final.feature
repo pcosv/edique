@@ -5,7 +5,7 @@ Feature: Gerar relatório final
 
 	@ignore
 	Scenario: Gerar relatório de projeto com atividades com relatório individual preenchido (GUI)
-		Given O projeto "Educação política para mafagafos" existe no sistema
+		Given o projeto "Educação política para mafagafos" existe no sistema
 		And o projeto "Educação política para mafagafos" possui a atividade "Preparar palestra"
 		And a atividade "Preparar palestra" tem relatório individual preenchido com "Deu bom"
 		And o projeto "Educação política para mafagafos" possui a atividade "Imprimir apostilas"
@@ -18,7 +18,7 @@ Feature: Gerar relatório final
 
 	@ignore
 	Scenario: Gerar relatório de projeto sem atividades com relatório individual preenchido (GUI)
-		Given O projeto "Amigos do Batman" existe no sistema
+		Given o projeto "Amigos do Batman" existe no sistema
 		And o projeto "Educação política para mafagafos" possui a atividade "Preparar palestra"
 		And a atividade "Preparar palestra" não possui relatório individual preenchido
 		When eu vou à página do projeto "Amigos do Batman"
@@ -27,7 +27,7 @@ Feature: Gerar relatório final
 
 	@ignore
 	Scenario: Gerar relatório de projeto sem atividades (GUI)
-		Given O projeto "Amigos do Batman" existe no sistema
+		Given o projeto "Amigos do Batman" existe no sistema
 		And o projeto "Amigos do Batman" não possui atividades
 		When eu vou à página do projeto "Amigos do Batman"
 		And eu seleciono a opção "Gerar Relatório"

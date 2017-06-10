@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Edique</title>
-    <%= csrf_meta_tags %>
+	<head>
+		<title>Edique</title>
+		<%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		      rel="stylesheet">
 
-  <body>
-    <%= yield %>
-  </body>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+
+	<body>
+
+		<nav class="navbar navbar-warning">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Ediquê</a>
+				</div>
+			</div>
+		</nav>
+
+		<%= yield %>
+
+		<script>$.material.init();</script>
+	</body>
 </html>

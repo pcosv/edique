@@ -1,0 +1,48 @@
+.project-well {
+    color: black;
+    /*display: table;*/
+}
+/*.project-well:hover * {
+    color: red;
+    text-decoration: none !important;
+}*/
+
+.project-well .col-md-3 {
+    padding: 0 20px;
+}
+
+.project-weel .col-md-3 h3 {
+    margin-top: 0;
+}
+
+.project-item {
+    /*float: none;
+    display: table-cell;*/
+}
+
+.right-bordered {
+    /*border-right: 1px rgba(0,0,0,0.5) solid;*/
+    height: 100%;
+}
+
+.activities-list {
+    font-size: 15px;
+    font-weight: bold;
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.activities-list .list-group-item {
+    padding-left: 0;
+}
+
+.activities-list span {
+    font-size: 20px;
+}
+
+.floating-btn {
+    position: fixed !important;
+    right: 20px;
+    bottom: 20px;
+}

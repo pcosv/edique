@@ -1,5 +1,56 @@
-<h1>New Project</h1>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 center">
+			<h1>Novo projeto</h1>
+		</div>
+	</div>
+</div>
 
-<%= render 'form', project: @project %>
+<button data-toggle="modal" data-target="#myModal">Modal</button>
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="/" method="post">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Novo projeto</h4>
+				</div> -->
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+						<div class="col-md-12">
+							<div class="form-group form-group-lg label-floating">
+								<label for="project[name]" class="control-label">Título do Projeto</label>
+								<input type="text" class="form-control" id="project[name]" name="project[name]">
+							</div>
+
+							<div class="form-group label-floating">
+								<label for="project[description]" class="control-label">Descrição</label>
+								<textarea id="project[description]" name="project[description]" class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-md-6 col-md-offset-6">
+							<div class="form-group form-group-lg">
+								<label for="project[initial-date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[initial-date]" name="project[initial-date]">
+							</div>
+
+							<div class="form-group form-group-lg">
+								<label for="project[final-date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[final-date]" name="project[final-date]">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Criar projeto</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <%= link_to 'Back', projects_path %>
