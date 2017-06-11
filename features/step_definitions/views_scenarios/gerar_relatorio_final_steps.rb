@@ -1,13 +1,12 @@
 Given(/^o projeto "([^"]*)" existe no sistema$/) do |arg|
-  param_proj = {project: {name: arg, start_date: Date.today, final_date: Date.today}}
-  post '/', param_proj
+  project = Project.new
+  project.name = arg
+  project.save
 end
 
-Given(/^O projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
+Given(/^o projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
   proj = Project.find_by_name(proj_name)
-  t = {task:{name:task_name, project:proj.id}}
-
-  post '/tasks', t
+  t = proj.tasks.new(name: task_name)
 end
 
 Given(/^a atividade "([^"]*)" tem relatório individual preenchido com "([^"]*)"$/) do |task_name, report_text|
