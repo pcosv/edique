@@ -20,8 +20,8 @@
 							<h3>Atividades</h3>
 							<ul class="list-group activities-list">
 								<li class="list-group-item">
-									<span><%= project.tasks.by_user(@current_user).count %></span>
-									 tarefa<% if project.tasks.by_user(@current_user).count != 1 %>s<%end%> para você
+									<span><%= project.tasks.by_user(current_user).count %></span>
+									 tarefa<% if project.tasks.by_user(current_user).count != 1 %>s<%end%> para você
 								</li>
 								<li class="list-group-item">
 									<span><%= project.tasks.idle.count %></span>

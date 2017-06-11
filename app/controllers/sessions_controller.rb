@@ -1,7 +1,8 @@
 class SessionsController < ApplicationController
-  include SessionsHelper
+  skip_before_action :authenticate_user, only: [:new, :create]
+
   def new
-    if(current_user)
+    if(logged_in?)
       redirect_to projects_path
     end
   end
@@ -12,14 +13,18 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to projects_path
     else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
+      # flash.now[:danger] = 'Invalid email/password combination'
+      render 'new', notice: 'Invalid email/password combination'
     end
   end
 
   def destroy
     log_out
-    render 'new'
+    if(logged_in?)
+      redirect_to projects_path
+    else
+      render 'new'
+    end
   end
 
 end

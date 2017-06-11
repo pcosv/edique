@@ -39,7 +39,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% @tasks.by_user(@current_user).each do |task| %>
+								<% @tasks.by_user(current_user).each do |task| %>
 									<tr>
 										<td> <a href=<%= project_task_path(project_id: @project, id: task) %>><%= task.name %></a> </td>
 										<td><%= task.final_date %></td>
@@ -47,7 +47,7 @@
 								<% end %>
 							</tbody>
 						</table>
-						<% if @tasks.by_user(@current_user).count <= 0 %>
+						<% if @tasks.by_user(current_user).count <= 0 %>
 							<p>Nenhuma atividade cadastrada</p>
 						<% end %>
 					</div>
@@ -91,7 +91,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% @tasks.not_by_user(@current_user).each do |task| %>
+								<% @tasks.not_by_user(current_user).each do |task| %>
 									<tr>
 										<td> <a href=<%= project_task_path(project_id: @project, id: task) %>><%= task.name %></a></td>
 										<td><%= task.final_date %></td>
@@ -99,7 +99,7 @@
 								<% end %>
 							</tbody>
 						</table>
-						<% if @tasks.not_by_user(@current_user).count <= 0 %>
+						<% if @tasks.not_by_user(current_user).count <= 0 %>
 							<p>Nenhuma atividade cadastrada</p>
 						<% end %>
 					</div>
