@@ -1,4 +1,4 @@
-Feature: Encerrar projeto (1) - BB
+Feature: Encerrar projeto
 	As a membro de projeto
 	I want to arquivar um projeto após seu término
 	So that eu possa me concentrar apenas em projetos que tenham tarefas a fazer 
