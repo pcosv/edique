@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   resources :users
   #resources :tasks
   resources :projects, :path => '/' do
