@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Edique</title>
+		<title>
+			<% if @page_name %>
+				<%= @page_name %>
+			<% else %>
+				Ediquê
+			<% end %>
+		</title>
 		<%= csrf_meta_tags %>
 
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
