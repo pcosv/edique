@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get 'sessions/new'
 
+#login
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+
   resources :users
   #resources :tasks
   resources :projects, :path => '/' do
