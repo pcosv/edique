@@ -4,12 +4,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.order('first_name ASC, last_name ASC')
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @current_projects = @user.projects.not_finished
+    @past_projects = @user.projects.finished
   end
 
   # GET /users/new
