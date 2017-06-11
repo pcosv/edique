@@ -1,5 +1,5 @@
 Given(/^o projeto "([^"]*)" existe no sistema$/) do |arg|
-  param_proj = {project: {name: arg}}
+  param_proj = {project: {name: arg, start_date: Date.today, final_date: Date.today}}
   post '/', param_proj
 end
 

@@ -4,11 +4,11 @@ Feature: Ter uma visão geral de todos os projetos
 	So that eu possa planejar os projetos futuros da ONG
  
 	Scenario: Visualizar visão geral de projetos (GUI)
-		Given o projeto "Educação Política de Mafagafos" está em andamento com data de entrega "01/04", está com os membros "Robertson" e "Bruce" atribuídos a ele
+		Given o projeto "Educação Política de Mafagafos" está em andamento com data de entrega "01/04/2017" e está com os membros "Robertson" e "Bruce" atribuídos a ele
 		And o projeto "Educação Política de Mafagafos" possui a tarefa "Preparar cartilha" como concluída
 		And o projeto "Educação Política de Mafagafos" possui a tarefa "Organizar local" como não concluída
 
-		Given o projeto "Edital amigos do Batman" está em andamento com data de entrega "25/12", está com os membros "Diana" e "Bruce" atribuídos a ele
+		Given o projeto "Edital amigos do Batman" está em andamento com data de entrega "25/12/2017" e está com os membros "Diana" e "Bruce" atribuídos a ele
 		And o projeto "Edital amigos do Batman" possui a tarefa "Encontrar foto original" como concluída
 
 		When eu entro na tela de visão geral
