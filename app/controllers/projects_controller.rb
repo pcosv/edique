@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @page_name = "Ediquê - #{@project.name}"
     @tasks = @project.tasks
   end
 

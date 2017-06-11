@@ -4,16 +4,21 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @page_name = "Ediquê - Usuários"
+    @users = User.order('first_name ASC, last_name ASC')
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @page_name = "Ediquê - #{@user.full_name}"
+    @current_projects = @user.projects.not_finished
+    @past_projects = @user.projects.finished
   end
 
   # GET /users/new
   def new
+    @page_name = "Ediquê - Criar usuário"
     @user = User.new
   end
 

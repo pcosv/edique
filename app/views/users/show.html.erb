@@ -1,24 +1,73 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="well">
+				<img src="https://goo.gl/OYC0MS" alt="Foto do usuário" class="img-responsive">
+				<h2><%= @user.full_name %></h2>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @user.cpf %>
-</p>
+				<h4>Email</h4>
+				<p><%= @user.email %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
+				<h4>CPF</h4>
+				<p><%= @user.cpf %></p>
+			</div>
+		</div>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+		<div class="col-md-9">
+			<div class="well">
+				<h3>PROJETOS EM ANDAMENTO</h3>
+				<% if @current_projects.count > 0 %>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Projeto</th>
+								<th>Atividades pendentes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @current_projects.each do |proj| %>
+							<tr>
+								<td>
+									<a href=<%=project_path(proj)%>> <%= proj.name %> </a>
+								</td>
+								<td><%= proj.tasks.pending_by_user(@user).count %></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% else %>
+					<p>Nenhum projeto</p>
+				<% end %>
+			</div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+			<div class="well">
+				<h3>PROJETOS PASSADOS</h3>
+				<% if @past_projects.count > 0 %>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Projeto</th>
+								<th>Atividades pendentes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @past_projects.each do |proj| %>
+							<tr>
+								<td>
+									<a href=<%=project_path(proj)%>> <%= proj.name %> </a>
+								</td>
+								<td><%= proj.tasks.pending_by_user(@user).count%></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% else %>
+					<p>Nenhum projeto</p>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

@@ -1,24 +1,19 @@
 <div class="container-fluid">
 
-	<% flash.each do |key, value| %>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="alert alert-dismissible alert-success">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					<%= value %>
-				</div>
-			</div>
-		</div>
-	<% end %>
-
 	<% @projects.each do |project| %>
 		<!-- Single project container -->
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
-				<a href=<%= project_path(id: project) %>><div class="well project-well">
+				<a href=<%= project_path(id: project) %>><div class="well project-well" id=<%= "project-#{project.id}" %>>
 					<div class="row">
 						<div class="project-item col-md-3 right-bordered">
 							<h2><%= project.name %></h2>
+							<p>Data final: <%= project.final_date.to_formatted_s(:pt_br) %></p>
+
+							<div class="progress">
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow=<%= project.progress_percent %> aria-valuemin="0" aria-valuemax="100" style="width: <%= project.progress_percent %>%">
+								</div>
+							</div>
 						</div>
 
 						<div class="project-item col-md-3 right-bordered">
@@ -44,14 +39,7 @@
 							<ul class="list-group">
 								<% project.users.each do |user| %>
 									<li class="list-group-item">
-										<div class="row-picture">
-											<img class="circle" src="http://lorempixel.com/56/56/people/1" alt="icon">
-										</div>
-										<div class="row-content">
-											<h4 class="list-group-item-heading"><%= user.first_name + ' ' + user.last_name %></h4>
-
-											<p class="list-group-item-text">3 atividades pendentes</p>
-										</div>
+										<%= user.full_name %></h4>
 									</li>
 								<% end %>
 							</ul>
@@ -94,13 +82,13 @@
 
 						<div class="col-md-6 col-md-offset-6">
 							<div class="form-group form-group-lg">
-								<label for="project[initial-date]" class="control-label">Data Inicial</label>
-								<input type="date" class="form-control" id="project[initial-date]" name="project[initial-date]">
+								<label for="project[start_date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[start_date]" name="project[start_date]">
 							</div>
 
 							<div class="form-group form-group-lg">
-								<label for="project[final-date]" class="control-label">Data Inicial</label>
-								<input type="date" class="form-control" id="project[final-date]" name="project[final-date]">
+								<label for="project[final_date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="project[final_date]" name="project[final_date]">
 							</div>
 						</div>
 					</div>

@@ -27,7 +27,7 @@ end
 
 When(/^eu vou à página do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
-  visit "z#{proj.id}"
+  visit "/#{proj.id}"
 end
 
 When(/^eu seleciono a opção "([^"]*)"$/) do |arg|
@@ -36,7 +36,7 @@ end
 
 Then(/^eu sou levado à página de relatório final do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
-  assert_current_path("#{proj.id}/report")
+  assert_current_path("/#{proj.id}/report")
 end
 
 @activity_report_title_class = '.activity'

@@ -10,6 +10,6 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before do
-    u = User.new(first_name: "Bruno", last_name:"Barbosa", cpf:"04771475423", email:"brunobt94@gmail.com")
-    u.save
+	u = User.new(first_name: "Bruno", last_name:"Barbosa", cpf:"04771475423", email:"brunobt94@gmail.com")
+	u.save
 end
