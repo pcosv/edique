@@ -18,6 +18,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  def on_denied
+    render 'access_denied'
+  end
+
   def destroy
     log_out
     if(logged_in?)
