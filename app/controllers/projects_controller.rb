@@ -75,14 +75,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:project_id])
     user_member = User.find(params[:uid])
 
-
-    if user_member.projects.exists?(@project) 
-      user_member.projects.delete(@project)
-
-      user_member.tasks.delete_all
-    else
-      user_member.projects << @project
-    end
+    add_member_to(@project, user_member)
 
     redirect_to controller: 'tasks', action: 'index'
   end
@@ -112,5 +105,14 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:name, :description, :start_date, :final_date)
+    end
+    def add_member_to(project, member)
+      if member.projects.exists?(project)
+        member.projects.delete(project)
+
+        member.tasks.delete_all
+      else
+        member.projects << project
+      end
     end
 end
