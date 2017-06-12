@@ -13,7 +13,8 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @users = User.all
-    @task = @project.tasks.find(params[:id])
+#@task = @project.tasks.find(params[:id])
+    @project = Project.find(params[:project_id])
   end
 
   # GET /tasks/new

@@ -78,6 +78,8 @@ class ProjectsController < ApplicationController
 
     if user_member.projects.exists?(@project) 
       user_member.projects.delete(@project)
+
+      user_member.tasks.delete_all
     else
       user_member.projects << @project
     end
