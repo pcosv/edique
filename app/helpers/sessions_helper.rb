@@ -15,6 +15,15 @@ module SessionsHelper
     session[:user_id] != nil
   end
 
+  def is_admin_session
+    return logged_in? && current_user.admin?
+  end
+
+  def authenticate_admin
+    if !is_admin_session
+      redirect_to denied_path
+    end
+  end
 
   def authenticate_user
     if !logged_in?
