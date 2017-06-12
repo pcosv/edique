@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.not_finished.includes(:tasks).includes(:users)
+    @users = User.order('first_name ASC, last_name ASC')
   end
 
   # GET /projects/1
@@ -26,12 +27,15 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    @project = Project.new(project_params(params))
 
     respond_to do |format|
       if @project.save
         format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
+        project_user_params(params)[:ids].each do |user_id|
+          add_member_to(@project, User.find(user_id))
+        end
       else
         format.html { render :new }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -43,7 +47,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
-      if @project.update(project_params)
+      if @project.update(project_params(params))
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -103,8 +107,11 @@ class ProjectsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
+    def project_params(params)
       params.require(:project).permit(:name, :description, :start_date, :final_date)
+    end
+    def project_user_params(params)
+      params.require(:project_user_data).permit(:ids=>[])
     end
     def add_member_to(project, member)
       if member.projects.exists?(project)
