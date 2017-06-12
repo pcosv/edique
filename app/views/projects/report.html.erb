@@ -1,0 +1,16 @@
+<div class=container-fluid">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="well">
+        <% if @tasks.with_report.count > 0 %>
+            <% @tasks.with_report.each do |task| %>
+              <h3><%= task.name%></h3>
+              <p><%= task.task_report%></p>
+            <% end %>
+        <%else%>
+            <d>Não há atividades com relatórios individuais para gerar um relatório final</d>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

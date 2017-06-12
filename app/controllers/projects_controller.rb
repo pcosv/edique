@@ -1,16 +1,17 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :get_current_user
+
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.includes(:tasks).includes(:users)
+    @projects = Project.not_finished.includes(:tasks).includes(:users)
     @tasks = @project.tasks
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @page_name = "Ediquê - #{@project.name}"
     @tasks = @project.tasks
   end
 
@@ -63,6 +64,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  #GET /projects/:project_id/report
+  def get_report
+    @tasks = Project.find(params[:project_id]).tasks
+    render("report")
+  end
+
   # POST /projects/:project_id/addMember/:uid
   def addMember
 
@@ -81,14 +88,26 @@ class ProjectsController < ApplicationController
     redirect_to controller: 'tasks', action: 'index'
   end
 
+  def finish_project
+    project = Project.find(params[:project_id])
+    project.finished = true
+
+    respond_to do |format|
+      if project.save
+        format.html { redirect_to projects_url, notice: 'Projeto arquivado com sucesso.' }
+        format.json { render :show, status: :created, location: @project }
+      else
+        format.html { render :new }
+        format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
-    end
-
-    def get_current_user
-      @current_user = User.first #TODO: get this in the correct way
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
