@@ -31,10 +31,18 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = @project.tasks.new(task_params)
+    members_array = params[:task][:list_members]
+
+    if members_array
+      members_array.each do |member_id|
+        add_member(member_id, @task)
+      end
+    end
+
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to [@project, @task], notice: 'Task was successfully created.' }
+        format.html { redirect_to [@project], notice: 'Atividade criada com sucesso' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -48,7 +56,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to [@project, @task], notice: 'Task was successfully updated.' }
+        format.html { redirect_to [@project, @task], notice: 'Atividade atualizada com sucesso' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -68,19 +76,23 @@ class TasksController < ApplicationController
    # end
   end
 
-  # POST /:project_id/:task_id/addMemberTask/:uid
-  def addMemberTask
+  # POST /:project_id/:task_id/add_member_to_task/:uid
+  def add_member_to_task
     @task = @project.tasks.find(params[:task_id])
-    user_member = User.find(params[:uid])
+    add_member(params[:uid], @task)
+
+    redirect_to [@project]
+  end
+
+  def add_member(member_id, task)
+    user_member = User.find(member_id)
 
 
-    if user_member.tasks.exists?(@task) 
-      user_member.tasks.delete(@task)
+    if user_member.tasks.exists?(task) 
+      user_member.tasks.delete(task)
     else
-      user_member.tasks << @task
+      user_member.tasks << task
     end
-
-    redirect_to controller: 'tasks', action: 'show', id: @task
   end
 
   private

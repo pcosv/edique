@@ -5,7 +5,6 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.not_finished.includes(:tasks).includes(:users)
-    @tasks = @project.tasks
   end
 
   # GET /projects/1
@@ -70,8 +69,8 @@ class ProjectsController < ApplicationController
     render("report")
   end
 
-  # POST /projects/:project_id/addMember/:uid
-  def addMember
+  # POST /projects/:project_id/add_member/:uid
+  def add_member
 
     @project = Project.find(params[:project_id])
     user_member = User.find(params[:uid])
