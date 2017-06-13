@@ -33,8 +33,11 @@ class ProjectsController < ApplicationController
       if @project.save
         format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
-        project_user_params(params)[:ids].each do |user_id|
-          add_member_to(@project, User.find(user_id))
+        user_params = project_user_params(params)
+        if(user_params && user_params[:ids])
+          user_params[:ids].each do |user_id|
+            add_member_to(@project, User.find(user_id))
+          end
         end
       else
         format.html { render :new }
@@ -111,7 +114,7 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:name, :description, :start_date, :final_date)
     end
     def project_user_params(params)
-      params.require(:project_user_data).permit(:ids=>[])
+      params.permit(:project_user_data).permit(:ids=>[])
     end
     def add_member_to(project, member)
       if member.projects.exists?(project)
