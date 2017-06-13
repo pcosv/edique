@@ -15,6 +15,11 @@ class TasksController < ApplicationController
     @users = User.all
 #@task = @project.tasks.find(params[:id])
     @project = Project.find(params[:project_id])
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => { :task => @task, :location => [@project, @task] }, :include => {:users => {:only => :id}} }
+    end
   end
 
   # GET /tasks/new
@@ -33,12 +38,7 @@ class TasksController < ApplicationController
     @task = @project.tasks.new(task_params)
     members_array = params[:task][:list_members]
 
-    if members_array
-      members_array.each do |member_id|
-        add_member(member_id, @task)
-      end
-    end
-
+    update_task_members(members_array)
 
     respond_to do |format|
       if @task.save
@@ -54,9 +54,14 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+
+    members_array = params[:task][:list_members]
+
+    update_task_members(members_array)
+
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to [@project, @task], notice: 'Atividade atualizada com sucesso' }
+        format.html { redirect_to [@project], notice: 'Atividade atualizada com sucesso' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -92,6 +97,18 @@ class TasksController < ApplicationController
       user_member.tasks.delete(task)
     else
       user_member.tasks << task
+    end
+  end
+
+  def update_task_members(members_id)
+    @task.users.delete(@task.users)
+    if members_id
+      members_id.each do |member_id|
+        member = User.find(member_id)
+        if !member.tasks.exists?(@task)
+          add_member(member_id, @task)
+        end
+      end
     end
   end
 
