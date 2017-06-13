@@ -1,4 +1,8 @@
 @project = []
+
+Given(/^o sistema está vazio$/) do
+
+end
 Given(/^o projeto "([^"]*)" está no sistema$/) do |project_name|
   Project.create(name: project_name)
 end
@@ -6,7 +10,7 @@ end
 When(/^eu adiciono o projeto "([^"]*)" no sistema$/) do |project_name|
   @project = Project.all.to_a
   param_proj = {project: {name: project_name}}
-  post projects_path, param_proj
+  page.driver.post projects_path, param_proj
 end
 
 
@@ -23,19 +27,10 @@ end
 
 
 def compare_projs(p1, p2)
-  puts p1
-  puts p2
   return false if (!p1 ^ !p2) || (p1.count != p2.count)
   return true if(!p1 && !p2)
   p1.each_with_index do |proj, i|
-    puts(p1)
-    puts(p1[i])
-    puts p1[i].attributes
     return false if(p1[i].attributes != p2[i].attributes);
   end
   return true
-end
-
-Given(/^o sistema está vazio$/) do
-
 end

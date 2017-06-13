@@ -1,19 +1,21 @@
-Given(/^o projeto "([^"]*)" existe no sistema$/) do |arg|
+Given(/^o projeto "([^"]*)" existe no sistema$/) do |proj_name|
   project = Project.new
-  project.name = arg
+  project.name = proj_name
+  project.start_date = Date.today
+  project.final_date = Date.today
   project.save
 end
 
 Given(/^o projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
   proj = Project.find_by_name(proj_name)
   t = proj.tasks.new(name: task_name)
+  t.save
 end
 
 Given(/^a atividade "([^"]*)" tem relatório individual preenchido com "([^"]*)"$/) do |task_name, report_text|
   task = Task.find_by_name(task_name)
-  update = {task_report: report_text}
-
-  put "/tasks/#{task.id}", update
+  task.task_report =  report_text
+  task.save
 end
 
 Given(/^o projeto "([^"]*)" não possui atividades$/) do |arg|
@@ -30,23 +32,22 @@ When(/^eu vou à página do projeto "([^"]*)"$/) do |proj_name|
   visit "/#{proj.id}"
 end
 
-When(/^eu seleciono a opção "([^"]*)"$/) do |arg|
-  click_link_or_button(arg)
+When(/^eu seleciono a opção de relatório final$/) do
+  find("#project-name").click
+  within "#options-modal" do
+    click_link_or_button("Gerar relatório")
+  end
 end
 
 Then(/^eu sou levado à página de relatório final do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
   assert_current_path("/#{proj.id}/report")
+  puts page.body
 end
 
-@activity_report_title_class = '.activity'
-@activity_report_content_tag = 'p'
-Then(/^eu posso ver um item de relatório da atividade "([^"]*)" com conteúdo "([^"]*)"$/) do |arg1, arg2|
-  report_el = find(@activity_report_title_class, text: arg1)
-  within (report_el) do
-    report_content_el = find(@activity_report_content_tag)
-    assert(report_content_el == arg2)
-  end
+Then(/^eu posso ver um item de relatório da atividade "([^"]*)" com conteúdo "([^"]*)"$/) do |activity_name, content|
+  page.should(have_content(activity_name))
+  page.should(have_content(content))
 end
 
 Then(/^eu recebo um aviso que diz "([^"]*)"$/) do |arg|

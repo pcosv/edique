@@ -7,7 +7,6 @@ Feature: Criar projetos
 	@ignore
 	Scenario: Adicionar projeto (sistema)
 		Given o sistema está vazio
-#		And eu estou logado
 		When eu adiciono o projeto "Edital Amigos do Batman" no sistema
 		Then o sistema deve possuir um projeto chamado "Edital Amigos do Batman"
 
