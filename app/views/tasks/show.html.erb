@@ -34,7 +34,7 @@
  <ul>
   <% @users.each do |user| next if !user.projects.exists?(@project) %>
 	    <li>
-	    <%= link_to user.first_name ? user.first_name : user.cpf, project_task_addMemberTask_path(@project, @task, user), method: :post %>
+	    <%= link_to user.first_name ? user.first_name : user.cpf, project_task_add_member_path(@project, @task, user), method: :post %>
 	    <%= user.tasks.exists?(@task) ? 'Faz parte' : 'Nao faz parte'%>
 	    </li>
   <% end %>
