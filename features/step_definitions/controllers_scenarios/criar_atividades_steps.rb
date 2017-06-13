@@ -11,7 +11,7 @@ When(/^eu crio a atividade "([^"]*)" no projeto "([^"]*)"$/) do |task_name, proj
 end
 
 Then(/^a atividade "([^"]*)" não tem nenhum responsável alocado$/) do |task_name|
-  Task.find_by_name(project_name))
+  Task.find_by_name(project_name)
 
 end
 
