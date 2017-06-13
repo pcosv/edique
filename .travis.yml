@@ -13,4 +13,4 @@ before_install:
   - rake db:reset
   - rake db:migrate
 
-script: cucumber features/
+script: bundle exec cucumber
