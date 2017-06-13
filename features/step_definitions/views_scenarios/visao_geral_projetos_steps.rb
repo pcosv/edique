@@ -51,7 +51,7 @@ def add_member_to_project(member_name, project_name)
 end
 
 def create_new_user(user_name)
-	user = User.new(first_name: user_name, last_name: "")
+	user = User.create(first_name: user_name, last_name: "", password: "123")
 	user.save
 
 	return user
