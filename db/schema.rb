@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612001328) do
+ActiveRecord::Schema.define(version: 20170613002004) do
 
   create_table "participations", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(version: 20170612001328) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_participations_users_on_task_id"
     t.index ["user_id"], name: "index_participations_users_on_user_id"
+  end
+
+  create_table "post_attachments", force: :cascade do |t|
+    t.integer  "post_id"
+    t.string   "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|

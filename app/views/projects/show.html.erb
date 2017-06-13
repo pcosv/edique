@@ -41,8 +41,8 @@
 							<tbody>
 								<% @tasks.by_user(current_user).each do |task| %>
 									<tr>
-										<td> <a href=<%= project_task_path(project_id: @project, id: task) %>><%= task.name %></a> </td>
-										<td><%= task.final_date %></td>
+										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a> </td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -66,8 +66,8 @@
 							<tbody>
 								<% @tasks.idle.each do |task| %>
 									<tr>
-										<td> <a href=<%= project_task_path(project_id: @project, id: task) %>><%= task.name %></a> </td>
-										<td><%= task.final_date %></td>
+										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a> </td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -93,8 +93,8 @@
 							<tbody>
 								<% @tasks.not_by_user(current_user).each do |task| %>
 									<tr>
-										<td> <a href=<%= project_task_path(project_id: @project, id: task) %>><%= task.name %></a></td>
-										<td><%= task.final_date %></td>
+										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a></td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -109,11 +109,129 @@
 	</div>
 </div>
 
+
+<!-- Create Task -->
+
 <% if !@project.finished %>
-	<a href="javascript:void(0)" class="btn btn-danger btn-fab floating-btn">
-	  <i class="material-icons">add</i><div class="ripple-container"></div>
+	<a data-toggle="modal" href="#new-task-modal" class="btn btn-danger btn-fab floating-btn">
+		<i class="material-icons">add</i><div class="ripple-container"></div>
 	</a>
 <% end %>
+
+
+<div class="modal fade" id="new-task-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action= <%= project_tasks_path(@project) %> method="post">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Novo projeto</h4>
+				</div> -->
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+						<div class="col-md-12">
+							<div class="form-group form-group-lg label-floating">
+								<label for="task[name]" class="control-label">Título da Atividade</label>
+								<input type="text" class="form-control" id="task[name]" name="task[name]">
+							</div>
+
+							<div class="form-group label-floating">
+								<label for="task[description]" class="control-label">Descrição</label>
+								<textarea id="task[description]" name="task[description]" class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="form-group form-group-lg">
+								<% @project.users.each do |member|%>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" value=<%= "#{member.id}" %> name="task[list_members][]">
+											<%= member.full_name %>
+										</label>
+									</div>
+								<% end %> 
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="form-group form-group-lg">
+								<label for="task[final_date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="task[final_date]" name="task[final_date]">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Criar projeto</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Edit Task -->
+
+<div class="modal fade" id="edit-task-modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<form action= <%= project_tasks_path(@project) %> method="post">
+				<!-- <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title">Novo projeto</h4>
+				</div> -->
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="_method" value="patch">
+						<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %>>
+						<div class="col-md-12">
+							<div class="form-group form-group-lg label-floating">
+								<label for="edit-task[name]" class="control-label">Título da Atividade</label>
+								<input type="text" class="form-control" id="task-name-input" name="task[name]">
+							</div>
+
+							<div class="form-group label-floating">
+								<label for="task[description]" class="control-label">Descrição</label>
+								<textarea id="task-description-input" name="task[description]" class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="form-group form-group-lg">
+								<% @project.users.each do |member|%>
+									<div class="checkbox">
+										<label>
+											<input class="task-list-member-input" type="checkbox" value=<%= "#{member.id}" %> name="task[list_members][]">
+											<%= member.full_name %>
+										</label>
+									</div>
+								<% end %> 
+							</div>
+						</div>
+
+						<div class="col-md-6">
+
+							<div class="form-group form-group-lg">
+								<label for="task[final_date]" class="control-label">Data Inicial</label>
+								<input type="date" class="form-control" id="task-date-input" name="task[final_date]">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Salvar alterações</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 <!-- Project info modal -->
 <div class="modal fade" id="options-modal">
@@ -130,7 +248,7 @@
 						<div class="col-md-12">
 							<% if !@project.finished %>
 								<!-- <button class="btn btn-danger btn-raised"></button> -->
-                <%= link_to "Gerar relatório", project_report_path(@project), {class: 'btn btn-success btn-raised'}%>
+								<%= link_to "Gerar relatório", project_report_path(@project), {class: 'btn btn-success btn-raised'}%>
 								<%= button_to "Arquivar projeto", project_finish_path(@project), {class: 'btn btn-danger btn-raised'}%>
 							<% else %>
 								<button class="btn btn-danger btn-raised">Desarquivar projeto</button>
@@ -150,23 +268,23 @@
 </p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @project.name %>
+	<strong>Name:</strong>
+	<%= @project.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @project.description %>
+	<strong>Description:</strong>
+	<%= @project.description %>
 </p>
 
 <p>
-  <strong>Start date:</strong>
-  <%= @project.start_date %>
+	<strong>Start date:</strong>
+	<%= @project.start_date %>
 </p>
 
 <p>
-  <strong>Final date:</strong>
-  <%= @project.final_date %>
+	<strong>Final date:</strong>
+	<%= @project.final_date %>
 </p>
 
 <p>
@@ -176,6 +294,77 @@
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
 
+<script type="text/javascript">
 
+	var currentTask = null;
+	var baseActionPath = null;
+
+	$('a.task').on('click', function (event) {
+		var button = $(this); // Button that triggered the modal
+		var taskId = button.data('task');
+		var projectId = button.data('project');
+
+		getTaskInfo(projectId, taskId);
+
+		$('#edit-task-modal').modal('show');
+	})
+
+	function getTaskInfo(projectId, taskId) {
+		var xhr = new XMLHttpRequest();
+		var requestUrl = '/' + projectId + '/tasks/' + taskId + '.json';
+		xhr.open('GET', requestUrl, true);
+		xhr.setRequestHeader("Content-type", "text/json");
+		xhr.send();
+
+		xhr.addEventListener('readystatechange', function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var response = JSON.parse(xhr.responseText);
+
+				fillTaskInfo(response["task"]);
+			}
+		});
+
+		currentTask = taskId;
+	}
+
+	function fillTaskInfo(task) {
+		var form = $('#edit-task-modal form');
+		if (baseActionPath == null) {
+			baseActionPath = form.attr('action');
+		}
+		var newAction = baseActionPath + '/' + task['id'];
+		form.attr('action', newAction);
+
+		var taskName = task["name"];
+
+		var nameElem = $("#task-name-input");
+		nameElem.parent().removeClass('is-empty');
+		nameElem.val(taskName);
+
+		var descElem = $("#task-description-input");
+		descElem.parent().removeClass('is-empty');
+		descElem.val(taskName);
+
+		var membersIDs = [];
+		for (var i=0; i<task["users"].length; i++){
+			membersIDs.push(""+task["users"][i]['id'])
+		}
+		// console.log(task["users"][0]["id"]);
+		var memberElems = $(".task-list-member-input");
+		for (var i=0; i<memberElems.length; i++){
+			var memberElem = memberElems[i];
+
+			if (membersIDs.indexOf(memberElem.value) >= 0){
+				memberElem.checked = true;
+			}
+
+		}
+
+		var nameElem = $("#task-date-input");
+		nameElem.parent().removeClass('is-empty');
+		nameElem.val(task["final_date"]);
+	}
+
+</script>
 
 

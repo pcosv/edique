@@ -76,8 +76,8 @@ class ProjectsController < ApplicationController
     render("report")
   end
 
-  # POST /projects/:project_id/addMember/:uid
-  def addMember
+  # POST /projects/:project_id/add_member/:uid
+  def add_member
 
     @project = Project.find(params[:project_id])
     user_member = User.find(params[:uid])
