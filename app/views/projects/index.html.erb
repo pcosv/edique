@@ -81,14 +81,16 @@
 							</div>
 						</div>
             <div class="col-md-6">
-              <ul class="list-group">
+              <div class="form-group form-group-lg">
                 <%@users.each do |user| %>
-                  <li class="list-group-item">
-                    <%= check_box(:project_user_data, :ids, {:multiple => true}, user.id, nil)%>
-                    <%= label_tag(:project_user_data, user.first_name) %>
-                  </li>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value=<%= "#{user.id}" %> name="project_user_data[ids][]">
+                      <%= user.full_name %>
+                    </label>
+                  </div>
                 <%end%>
-              </ul>
+              </div>
             </div>
 						<div class="col-md-6 ">
 							<div class="form-group form-group-lg">
