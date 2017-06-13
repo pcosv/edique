@@ -8,7 +8,7 @@ end
 
 Given(/^o projeto "([^"]*)" possui a atividade "([^"]*)"$/) do |proj_name, task_name|
   proj = Project.find_by_name(proj_name)
-  t = proj.tasks.new(name: task_name)
+  t = proj.tasks.new(name: task_name, final_date: Date.today)
   t.save
 end
 
@@ -42,7 +42,6 @@ end
 Then(/^eu sou levado à página de relatório final do projeto "([^"]*)"$/) do |proj_name|
   proj = Project.find_by_name(proj_name)
   assert_current_path("/#{proj.id}/report")
-  puts page.body
 end
 
 Then(/^eu posso ver um item de relatório da atividade "([^"]*)" com conteúdo "([^"]*)"$/) do |activity_name, content|
