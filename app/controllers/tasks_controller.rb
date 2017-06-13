@@ -74,7 +74,7 @@ class TasksController < ApplicationController
     user_member = User.find(params[:uid])
 
 
-    if user_member.tasks.exists?(@task) 
+    if user_member.tasks.exists?(@task)
       user_member.tasks.delete(@task)
     else
       user_member.tasks << @task
@@ -91,7 +91,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :description, :final_date, :task_report)
+      params.require(:task).permit(:name, :description, :final_date, :task_report, :image)
     end
 
     def load_project

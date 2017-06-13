@@ -21,4 +21,5 @@ class Task < ApplicationRecord
 	scope :completed, -> { where(completed: true) }
 
   scope :with_report, -> { where("length(tasks.task_report) > 0")}
+	mount_uploader :image, ImageUploader
 end

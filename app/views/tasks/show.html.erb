@@ -20,6 +20,8 @@
   <%= @task.task_report %>
 </p>
 
+<%= image_tag(@task.image_url.to_s) %>
+
 <%= link_to 'Edit', edit_project_task_path(@project, @task) %> |
 <%= link_to 'Back', project_tasks_path(@project) %>
 
@@ -37,4 +39,3 @@
 	    </li>
   <% end %>
 </ul>
-
