@@ -1,6 +1,11 @@
 module SessionsHelper
   def log_in(user)
-    session[:user_id] = user.id
+    if(session)
+      session[:user_id] = user.id
+    else
+      #this enables login in during capybara tests
+      @current_session_user = User.find_by(id: session[:user_id])
+    end
   end
   def log_out
     @current_session_user = nil
