@@ -42,7 +42,7 @@
 								<% @tasks.by_user(current_user).each do |task| %>
 									<tr>
 										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a> </td>
-										<td><%= task.final_date %></td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -67,7 +67,7 @@
 								<% @tasks.idle.each do |task| %>
 									<tr>
 										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a> </td>
-										<td><%= task.final_date %></td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
@@ -94,7 +94,7 @@
 								<% @tasks.not_by_user(current_user).each do |task| %>
 									<tr>
 										<td> <a class="task" data-toggle="modal" href="" data-task=<%= task.id %> data-project=<%= @project.id %>><%= task.name %></a></td>
-										<td><%= task.final_date %></td>
+										<td><%= task.final_date.to_s(:pt_br) %></td>
 									</tr>
 								<% end %>
 							</tbody>
