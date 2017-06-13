@@ -5,8 +5,12 @@ rvm:
 
 before_install:
   - gem install bundler
+  - gem cleanup minitest
+  - gem cleanup rake
   - bundle install --without production
+  - rake db:drop
   - rake db:create
+  - rake db:reset
   - rake db:migrate
 
-script: cucumber
+script: bundle exec cucumber

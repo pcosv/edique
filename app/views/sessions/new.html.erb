@@ -11,10 +11,9 @@
             <%= f.label :password %>
             <%= f.password_field :password, class: 'form-control' %>
 
-            <%= f.submit "Log in", class:"btn btn-primary" %>
+            <%= f.submit "Log in", class:"btn btn-primary", id: "login_button" %>
         <% end %>
 
-        <p>New User? <%=link_to("Register", new_user_path)%></p>
       </div>
     </div>
   </div>
