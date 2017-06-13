@@ -3,7 +3,6 @@ Feature: Ter uma visão geral de um usuário
 	I want to visualizar as atividades de projeto alocadas a cada membro
 	So that Eu possa ver quais membros estão menos ocupados na hora de alocar a equipe de um projeto
 	
-	@ignore
 	Scenario: Visualizar perfil de usuário (GUI)
 	Given O usuário "Robertson" está cadastrado
 

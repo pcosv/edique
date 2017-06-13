@@ -37,13 +37,6 @@ Then(/^eu devo ver a data de entrega "([^"]*)"$/) do |final_date|
 end
 
 Then(/^eu devo ver a tarefa "([^"]*)" atribuída no campo de "([^"]*)"$/) do |task_name, tasks_field_name|
-	# page.all(:css, '.well').each do |well|
-	# 	within(well) do
-	# 		if find('h3').has_content(tasks_field_name)
-	# 			well.should have_content(task_name)
-	# 		end
-	# 	end
-	# end
 	well = page.find('.well', text: tasks_field_name)
 	well.should have_content(task_name)
 end
