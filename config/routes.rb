@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   #resources :tasks
   resources :projects, :path => '/' do
     resources :tasks do
-   		post '/addMemberTask/:uid' => 'tasks#addMemberTask', as: 'addMemberTask'
+   		post '/member/:uid' => 'tasks#add_member_to_task', as: 'add_member'
     end
-    post '/addMember/:uid' => 'projects#addMember', as: 'addMember'
+    post '/add_member/:uid' => 'projects#add_member', as: 'add_member'
     post '/finish' => 'projects#finish_project', as: 'finish'
     get '/report' => 'projects#get_report', as: 'report'
   end
