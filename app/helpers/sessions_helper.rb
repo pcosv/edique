@@ -1,6 +1,5 @@
 module SessionsHelper
   def log_in(user)
-    puts("\n\n#{user}\n\n\n")
     session[:user_id] = user.id
   end
   def log_out
@@ -12,9 +11,18 @@ module SessionsHelper
     @current_session_user ||= User.find_by(id: session[:user_id])
   end
   def logged_in?
-    session[:user_id] != nil
+    session[:user_id] != nil && current_user != nil
   end
 
+  def is_admin_session
+    return logged_in? && current_user.admin?
+  end
+
+  def authenticate_admin
+    if !is_admin_session
+      redirect_to denied_path
+    end
+  end
 
   def authenticate_user
     if !logged_in?
