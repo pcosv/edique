@@ -1,8 +1,12 @@
 Given(/^eu estou logado como o usuário "([^"]*)"$/) do |user_name|
+	visit logout_path
 	user = User.find_by_first_name("Bruno")
 	user.delete
 
-	user = create_new_user(user_name) #TODO: login properly
+	u = User.create(first_name: user_name, last_name:"Barbosa", cpf:"04771475423", email:"brunobt94@gmail.com", password:"i<3apple")
+	login_params = {session: {email:"brunobt94@gmail.com", password:"i<3apple"}, commit: "Log in"}
+	page.driver.post login_path, login_params
+	visit projects_path
 end
 
 Given(/^O projeto "([^"]*)" possui a tarefa "([^"]*)" atribuída ao participante "([^"]*)" e data de entrega "([^"]*)"$/) do |project_name, task_name, user_name, task_final_date_str|
