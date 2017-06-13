@@ -11,18 +11,18 @@ Feature: Gerar relatório final
 		And o projeto "Educação política para mafagafos" possui a atividade "Imprimir apostilas"
 		And a atividade "Imprimir apostilas" tem relatório individual preenchido com "Deu ruim"
 		When eu vou à página do projeto "Educação política para mafagafos"
-		And eu seleciono a opção "Gerar Relatório"
+		And eu seleciono a opção de relatório final
 		Then eu sou levado à página de relatório final do projeto "Educação política para mafagafos"
 		And eu posso ver um item de relatório da atividade "Preparar palestra" com conteúdo "Deu bom"
 		And eu posso ver um item de relatório da atividade "Imprimir apostilas" com conteúdo "Deu ruim"
 
 	@ignore
 	Scenario: Gerar relatório de projeto sem atividades com relatório individual preenchido (GUI)
-		Given o projeto "Amigos do Batman" existe no sistema
+		Given o projeto "Educação política para mafagafos" existe no sistema
 		And o projeto "Educação política para mafagafos" possui a atividade "Preparar palestra"
 		And a atividade "Preparar palestra" não possui relatório individual preenchido
-		When eu vou à página do projeto "Amigos do Batman"
-		And eu seleciono a opção "Gerar Relatório"
+		When eu vou à página do projeto "Educação política para mafagafos"
+		And eu seleciono a opção de relatório final
 		Then eu recebo um aviso que diz "Não há atividades com relatórios individuais para gerar um relatório final"
 
 	@ignore
@@ -30,5 +30,5 @@ Feature: Gerar relatório final
 		Given o projeto "Amigos do Batman" existe no sistema
 		And o projeto "Amigos do Batman" não possui atividades
 		When eu vou à página do projeto "Amigos do Batman"
-		And eu seleciono a opção "Gerar Relatório"
+		And eu seleciono a opção de relatório final
 		Then eu recebo um aviso que diz "Não há atividades com relatórios individuais para gerar um relatório final"
