@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
 	has_many :participations_users
 	has_many :tasks, through: :participations_users
-
+	validates_uniqueness_of :cpf
 	has_secure_password
 
 	def full_name
@@ -16,7 +16,7 @@ class User < ApplicationRecord
 		if self.last_name
 			full_name += self.last_name
 		end
-		
+
 		return full_name
 	end
 end
